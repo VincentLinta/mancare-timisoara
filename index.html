@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locuri | Mâncare în Timișoara</title>
+<meta name="description" content="Ghid de locuri de mâncat din Timișoara: notele publice și părerea mea sinceră.">
+<meta property="og:title" content="Locuri | Mâncare în Timișoara">
+<meta property="og:description" content="Ghid de locuri de mâncat din Timișoara: notele publice și părerea mea sinceră.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<link rel="preload" href="data/locuri.json" as="fetch" crossorigin>
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Mâncare în Timișoara</h1><p class="sub">Notele publice și părerea mea sinceră.</p></div></header>
+<div class="bar" role="search" aria-label="Căutare și filtre"><div class="wrap">
+ <input id="cauta" type="search" placeholder="Caută: nume, bucătărie, zonă…" aria-label="Caută">
+ <div class="butoane acte"><button id="wizBtn" type="button">🍽️ Ce mănânc azi?</button><button id="near" type="button">📍 Lângă mine</button><button id="surp" type="button">🎲 Surprinde-mă</button><button id="top" type="button">⭐ Topul meu</button><button id="share" type="button">🔗 Distribuie</button><button id="reset" type="button">Resetează</button></div>
+ <details id="filtre"><summary id="sumar">Filtre</summary>
+  <script>if(window.matchMedia&&matchMedia("(min-width:700px)").matches)document.getElementById("filtre").open=true</script>   <!-- deschis înainte de primul desen: fără salt de layout -->
+  <div class="controls">
+   <select id="tip" aria-label="Tip"><option value="">Toate tipurile</option></select>
+   <select id="zona" aria-label="Zonă"><option value="">Toate zonele</option></select>
+   <select id="bucatarie" aria-label="Bucătărie"><option value="">Toate bucătăriile</option></select>
+   <select id="sortare" aria-label="Sortare"><option value="nume">Nume A-Z</option><option value="nota-mea">Nota mea</option><option value="publica">Nota publică</option><option value="distanta">Cele mai apropiate</option></select>
+   <label class="check" id="deschisL"><input type="checkbox" id="deschis"> Deschis acum</label>
+   <label class="check"><input type="checkbox" id="vizitat"> Doar unde am fost</label>
+   <label class="check"><input type="checkbox" id="fav"> Doar favoritele ♥</label>
+   <fieldset class="fac"><legend>Facilități</legend>
+    <label class="check"><input type="checkbox" data-opt="terasa"> Terasă</label><label class="check"><input type="checkbox" data-opt="vegetarian"> Vegetarian</label>
+    <label class="check"><input type="checkbox" data-opt="vegan"> Vegan</label><label class="check"><input type="checkbox" data-opt="livrare"> Livrare</label>
+    <label class="check"><input type="checkbox" data-opt="takeaway"> Takeaway</label><label class="check"><input type="checkbox" data-opt="accesibil"> Accesibil</label>
+   </fieldset>
+  </div></details>
+</div></div>
+<main class="wrap">
+ <p id="numar" role="status">Se încarcă locurile…</p>
+ <div id="eroare" class="eroare" hidden></div>
+ <section id="topSec" class="topsec" aria-label="Topul meu" hidden></section>
+ <div id="surprinde" hidden></div>
+ <div id="lista" class="grid" aria-busy="true"><div class="sk" aria-hidden="true"></div><div class="sk" aria-hidden="true"></div><div class="sk" aria-hidden="true"></div></div>
+</main>
+<button id="cmpBar" type="button" hidden>Compară</button>
+<dialog id="cmpDlg" class="lb" aria-label="Comparație"><h2>Comparație</h2><div id="cmpBody"></div>
+ <div class="butoane"><button id="cmpClear" type="button" class="icon">Golește selecția</button><form method="dialog"><button>Închide</button></form></div></dialog>
+<dialog id="wizDlg" class="lb" aria-label="Ce mănânc azi?"><h2>Ce mănânc azi?</h2><div id="wizBody"></div>
+ <div class="butoane"><button id="wizBack" type="button" class="icon">← Înapoi</button><form method="dialog"><button>Închide</button></form></div></dialog>
+<script src="js/common.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/program.js"></script>
+<script src="js/app.js"></script>
+<script src="js/wizard.js"></script>
+</body>
+</html>

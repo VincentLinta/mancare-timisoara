@@ -1,0 +1,369 @@
+/* =====================================================================
+   Mâncare în Timișoara: stiluri (mobil întâi). Secțiuni:
+   1 culori · 2 bază · 3 antet și navbar · 4 butoane și câmpuri · 5 căutare și filtre
+   6 carduri · 7 secțiuni și dialoguri · 8 pagini · 9 subsol · 10 tipărire și mișcare redusă
+   ===================================================================== */
+
+/* ---------- 1. culori: fiecare are un rol (accent = acțiuni, turcoaz = restaurante/facilități,
+   albastru = Maps/zone/cafenele, chihlimbar = bucătării/top, mov-roz = pub/bar) ---------- */
+:root{
+  --bg:#fffaf3;--card:#ffffff;--text:#261a12;--muted:#64574d;--line:#eadccd;
+  --accent:#bb3b0a;--teal:#0f766e;--amber:#b45309;--blue:#1d4ed8;--berry:#be185d;
+  --on-accent:#ffffff;--err:#b3261e;--nav:60px;
+  --stripe:linear-gradient(90deg,var(--accent),var(--amber),var(--teal),var(--blue),var(--berry));
+  --shadow:0 8px 22px rgba(38,26,18,.12);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#17120e;--card:#221a14;--text:#f3e9df;--muted:#b3a396;--line:#3a2d23;
+  --accent:#ff8a4c;--teal:#5eead4;--amber:#fbbf24;--blue:#93c5fd;--berry:#f9a8d4;
+  --on-accent:#1a1008;--err:#ff8a80;--shadow:0 8px 22px rgba(0,0,0,.45)}}
+:root[data-theme=dark]{
+  --bg:#17120e;--card:#221a14;--text:#f3e9df;--muted:#b3a396;--line:#3a2d23;
+  --accent:#ff8a4c;--teal:#5eead4;--amber:#fbbf24;--blue:#93c5fd;--berry:#f9a8d4;
+  --on-accent:#1a1008;--err:#ff8a80;--shadow:0 8px 22px rgba(0,0,0,.45)}
+
+/* ---------- 2. bază ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+[hidden]{display:none!important}           /* altfel stilurile butoanelor anulează atributul hidden */
+body{margin:0;padding-top:var(--nav);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--accent)}
+h1,h2,h3{line-height:1.2;letter-spacing:-.01em}
+h1{margin:0;font-size:clamp(1.8rem,5vw,2.8rem);letter-spacing:-.02em}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:3px solid var(--text);outline-offset:3px;box-shadow:0 0 0 6px var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1rem}
+main{min-height:60vh}
+@keyframes aparitie{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sub{margin:.4rem 0 0;color:var(--muted)}
+.adresa{margin:0;font-size:.85rem;color:var(--muted)}
+.gol-msg{color:var(--muted)}
+.prose{max-width:760px}.prose h2{margin-top:2rem}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:var(--on-accent);padding:.7rem 1rem;z-index:100;border-radius:0 0 .5rem 0;font-weight:700}
+.skip:focus{left:0}
+
+/* ---------- 3. antet și navbar ---------- */
+.top{position:relative;padding:2.4rem 0 1.7rem;background:var(--card);
+  background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 16%,var(--bg)),color-mix(in srgb,var(--amber) 12%,var(--bg)) 45%,color-mix(in srgb,var(--teal) 16%,var(--bg)))}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--stripe)}
+.back{color:var(--accent);text-decoration:none;font-weight:600;display:inline-block;margin-bottom:.4rem}
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:50;background:var(--card);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--stripe)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1280px}
+.brand{display:flex;align-items:center;gap:.4rem;flex:0 0 auto;white-space:nowrap;font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none}
+.menu{display:none;position:absolute;top:var(--nav);left:0;right:0;background:var(--card);padding:1rem;flex-direction:column;gap:.8rem;box-shadow:0 14px 24px rgba(0,0,0,.14);border-bottom:3px solid var(--accent)}
+.menu.open{display:flex}
+.menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.2rem}
+.menu a{display:block;padding:.5rem .75rem;border-radius:.5rem;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap}
+.menu a:hover{background:color-mix(in srgb,var(--accent) 12%,var(--card))}
+.menu a.active{background:var(--accent);color:var(--on-accent)}
+#navForm{display:flex;gap:.3rem}
+#navForm input{flex:1;width:100%;padding:.45rem .7rem;border:1px solid var(--line);border-radius:.5rem;background:var(--bg);color:var(--text);font-size:.95rem}
+.tools{display:flex;gap:.3rem}
+@media(min-width:1360px){
+  #burger{display:none}
+  .menu{display:flex;position:static;flex-direction:row;align-items:center;padding:0;background:none;box-shadow:none;border:0;flex:1;justify-content:space-between;margin-left:1rem;gap:.6rem}
+  .menu ul{flex-direction:row;gap:.1rem}
+  #navForm{width:190px}
+}
+
+/* ---------- 4. butoane și câmpuri ---------- */
+button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.55rem .95rem;font:inherit;font-size:.95rem;font-weight:600;border:1px solid var(--accent);border-radius:.6rem;background:var(--accent);color:var(--on-accent);cursor:pointer;text-decoration:none;transition:filter .15s,transform .15s}
+button:hover,.btn:hover{filter:brightness(.92)}
+.icon{background:transparent;color:var(--text);border:1px solid var(--line);padding:.35rem .6rem;border-radius:.5rem;font-size:.95rem}
+.icon:hover{border-color:var(--accent);filter:none}
+.linkb{background:none;border:0;padding:0;color:var(--accent);text-decoration:underline;font-size:inherit;font-weight:400}
+.butoane{display:flex;gap:.5rem;flex-wrap:wrap}
+.butoane>button:last-child,.butoane>form>button{background:transparent;color:var(--accent)}
+input[type=search],select{width:100%;padding:.7rem .85rem;font:inherit;font-size:1rem;border:1px solid var(--line);border-radius:.7rem;background:var(--card);color:var(--text)}
+.check{display:flex;align-items:center;gap:.5rem;color:var(--text);font-size:.95rem;white-space:nowrap}
+.check input{width:1.1rem;height:1.1rem;accent-color:var(--accent)}
+.eroare{background:#fde8e8;color:#8a1c1c;padding:1rem;border-radius:.6rem;margin-bottom:1rem}
+
+/* ---------- 5. căutare, acțiuni, filtre ---------- */
+.bar{padding:1.3rem 0 .2rem}
+#cauta{padding:.85rem 1rem;font-size:1.05rem;box-shadow:var(--shadow)}
+.acte{margin:.9rem 0 .5rem}
+#wizBtn{background:var(--teal);border-color:var(--teal)}
+#near{background:var(--blue);border-color:var(--blue)}
+#top{background:var(--amber);border-color:var(--amber)}
+#share,#reset{background:transparent;color:var(--text);border-color:var(--line)}
+#share:hover,#reset:hover{border-color:var(--accent);filter:none}
+.bar summary{cursor:pointer;font-weight:700;padding:.4rem 0;color:var(--accent)}
+.controls{display:grid;gap:.6rem;margin:.5rem 0 0}
+.fac{grid-column:1/-1;border:1px solid var(--line);border-radius:.7rem;display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;padding:.6rem .9rem;margin:0;background:var(--card)}
+.fac legend{font-size:.85rem;color:var(--muted);padding:0 .3rem}
+#numar{color:var(--muted);margin:.6rem 0 .8rem}
+@media(max-width:699px){
+  .acte{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+  .acte button{padding:.55rem .5rem;font-size:.9rem;white-space:nowrap}
+  .fab{width:40px;height:40px;font-size:1.05rem;opacity:.93}
+}
+@media(min-width:700px){.controls{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:center}}
+
+/* ---------- 6. carduri, etichete, note ---------- */
+.grid{display:grid;gap:1.1rem;grid-template-columns:1fr;padding-bottom:3rem}
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+.mai{grid-column:1/-1;text-align:center}
+.card{--c:var(--accent);position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:.9rem;overflow:hidden;box-shadow:0 1px 2px rgba(38,26,18,.06);transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.t-r{--c:var(--teal)}.t-f{--c:var(--accent)}.t-p,.t-b{--c:var(--berry)}.t-c{--c:var(--blue)}.t-i{--c:var(--amber)}
+.card .body{padding:1rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.card h2{margin:0;font-size:1.15rem}
+.card h2 a{color:inherit;text-decoration:none}.card h2 a:hover{color:var(--c)}
+.detalii{margin:0;font-size:.92rem}
+.linkuri{margin:auto 0 0;display:flex;gap:1rem}
+.linkuri a{font-weight:600;text-decoration:none}.linkuri a:hover{text-decoration:underline}
+.thumb{width:100%;height:132px;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:3.2rem}
+.thumb.ph{text-shadow:0 4px 14px rgba(0,0,0,.35)}
+main>.thumb{height:200px;border-radius:.9rem;margin-top:1rem}
+.fav{position:absolute;top:.6rem;right:.6rem;width:38px;height:38px;border-radius:50%;padding:0;font-size:1.3rem;background:var(--card);color:var(--accent);border:1px solid var(--line);z-index:2}
+.cmp{font-size:.85rem;color:var(--muted);display:flex;gap:.35rem;align-items:center;cursor:pointer}
+.taguri{display:flex;flex-wrap:wrap;gap:.3rem}
+.tag{--t:var(--muted);font-size:.78rem;padding:.12rem .6rem;border-radius:99px;background:var(--bg);background:color-mix(in srgb,var(--t) 10%,var(--card));border:1px solid color-mix(in srgb,var(--t) 40%,var(--line));color:var(--text)}
+.tag.tip{--t:var(--c,var(--accent));font-weight:700}
+.tag.zona{--t:var(--blue)}.tag.fac{--t:var(--teal)}.tag.dist{--t:var(--blue);font-weight:700}
+.note{display:flex;gap:.45rem;flex-wrap:wrap}
+.nota{--n:var(--muted);display:inline-flex;align-items:center;gap:.4rem;font-size:.88rem;font-weight:700;padding:.15rem .7rem;border-radius:99px;background:var(--bg);background:color-mix(in srgb,var(--n) 10%,var(--card));border:1px solid color-mix(in srgb,var(--n) 45%,var(--line));color:var(--text)}
+.nota::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--n)}
+.nota small{font-weight:400;color:var(--muted)}
+.nota.maps{--n:var(--blue)}.nota.ta{--n:var(--teal)}.nota.mea{--n:var(--accent)}
+.nota.gol{font-weight:400;font-style:italic;color:var(--muted);border-style:dashed}.nota.gol::before{display:none}
+
+/* ---------- 7. secțiuni speciale, dialoguri, chat, plutitoare ---------- */
+.topsec{--c:var(--amber);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:.9rem;padding:1rem 1.2rem;margin-bottom:1.2rem;background:var(--card)}
+.topsec h2{margin:0 0 .4rem}.topsec ol{margin:0 0 .7rem;padding-left:1.4rem}
+.surp{border:2px dashed var(--teal);border-radius:1rem;padding:1rem;margin-bottom:1.2rem}
+.surp h2{margin:0 0 .6rem}.surp .card{max-width:420px;margin-bottom:.8rem}
+dialog{border:1px solid var(--line);border-radius:1rem;background:var(--card);color:var(--text);max-width:min(560px,92vw);padding:1.2rem;box-shadow:var(--shadow)}
+dialog::backdrop{background:#000a}
+dialog ul{padding-left:1.1rem}
+.lb{max-width:min(900px,95vw);width:100%}
+.lb img{width:100%;max-height:65vh;object-fit:contain;border-radius:.8rem}
+.lb .thumb{height:50vh;font-size:8rem;border-radius:.8rem}
+.lbnav{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:.8rem}
+.cmpt{min-width:0}
+.wopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem;margin:.8rem 0}
+.wopt{justify-content:flex-start;text-align:left;padding:.7rem .8rem;font-size:1rem;background:var(--bg);color:var(--text);border:1px solid var(--line)}
+.wopt:hover{border-color:var(--teal);filter:none;transform:translateY(-1px)}
+.wres{list-style:none;padding:0;margin:.6rem 0;display:grid;gap:.7rem}
+.wres li{border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:.8rem;padding:.7rem .9rem;background:var(--bg)}
+#wizBody h3{margin:.2rem 0}
+.fab{position:fixed;right:1rem;z-index:40;width:44px;height:44px;border-radius:50%;padding:0;font-size:1.2rem;background:var(--accent);border:0;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+#chatBtn{right:auto;left:1rem;bottom:1rem;background:var(--teal)}
+#chatBox{position:fixed;left:1rem;bottom:4.6rem;width:min(340px,92vw);z-index:45;display:none;background:var(--card);border:1px solid var(--line);border-radius:.9rem;box-shadow:var(--shadow);overflow:hidden}
+#chatBox.open{display:block}
+#chatBox .chat-h{padding:.6rem .8rem;font-weight:700;border-bottom:3px solid var(--teal)}
+#chatLog{height:250px;overflow:auto;padding:.6rem;font-size:.92rem}
+.msg{margin:.35rem 0;padding:.45rem .7rem;border-radius:.8rem;max-width:90%}
+.msg.bot{background:color-mix(in srgb,var(--teal) 8%,var(--card));border:1px solid color-mix(in srgb,var(--teal) 25%,var(--line))}
+.msg.me{background:var(--accent);color:var(--on-accent);margin-left:auto}
+.chips{display:flex;flex-wrap:wrap;gap:.3rem;padding:.2rem .6rem .4rem}
+.chip{padding:.25rem .6rem;font-size:.82rem;border-radius:99px;background:transparent;color:var(--teal);border:1px solid var(--teal)}
+.chip:hover{background:var(--teal);color:var(--on-accent);filter:none}
+#chatForm{display:flex;gap:.3rem;padding:.5rem;border-top:1px solid var(--line)}
+#chatForm input{flex:1;padding:.5rem;border:1px solid var(--line);border-radius:.5rem;background:var(--bg);color:var(--text)}
+#chatForm button{background:var(--teal);border-color:var(--teal)}
+#cmpBar{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:42;border-radius:99px;box-shadow:0 4px 16px #0004}
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:.6rem 1rem;border-radius:.6rem;z-index:60}
+.cookie{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--card);border-top:3px solid var(--accent);padding:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.cookie p{margin:0;flex:1 1 280px}
+
+/* ---------- 8. pagini ---------- */
+#loc h2{margin:1.5rem 0 .5rem}
+#loc .taguri{margin:1rem 0 .4rem}
+#loc .note{margin:.6rem 0}
+#loc p.butoane,#loc p:has(.btn){margin:.9rem 0}
+.lista{padding-left:1.2rem;margin:0}
+.galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem}
+.galerie img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.6rem}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;padding:1rem 0 3rem}
+.gal button{display:grid;grid-template-columns:minmax(0,1fr);justify-items:stretch;gap:.3rem;width:100%;text-align:center;padding:0;border:0;background:none;color:var(--text);font-size:.85rem;font-weight:400}
+.gal .thumb{height:130px;border-radius:.6rem}
+.tabel-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:.9rem;margin-bottom:3rem;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:760px}
+caption{padding:.6rem;text-align:left;color:var(--muted);font-size:.9rem}
+th,td{padding:.65rem .8rem;text-align:left;border-bottom:1px solid var(--line)}
+thead th{background:color-mix(in srgb,var(--accent) 10%,var(--card))}
+th button{all:unset;cursor:pointer;font-weight:700;color:var(--text)}
+th button:hover{color:var(--accent)}
+th button:focus-visible{outline:3px solid var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--blue) 5%,var(--card))}
+.lbl{display:grid;gap:.3rem;margin:1.2rem 0 .6rem;color:var(--muted)}
+.lbl input{padding:.7rem;border:1px solid var(--line);border-radius:.6rem;background:var(--card);color:var(--text);font-size:1rem}
+.form{display:grid;gap:1rem;max-width:620px;margin:1.2rem 0 3rem}
+.form label{display:grid;gap:.25rem;font-weight:600}
+.form input:not([type=checkbox]),.form textarea{padding:.7rem;border:2px solid var(--line);border-radius:.6rem;background:var(--card);color:var(--text);font-size:1rem;font-family:inherit}
+.form .check{display:flex;font-weight:400}
+.form .invalid{border-color:var(--err)!important}.form .valid{border-color:#2e7d32!important}
+.err{color:var(--err);font-size:.85rem;min-height:1.1em;font-weight:400}
+.ok{background:#e6f4ea;color:#14532d;padding:1rem;border-radius:.6rem;max-width:620px}
+.video,.mapa{width:100%;border:0;border-radius:.9rem}
+.video{aspect-ratio:16/9}.mapa{height:60vh;margin:1rem 0}
+.video-gol{display:grid;place-items:center;background:var(--card);border:2px dashed var(--line);color:var(--muted);font-size:1.1rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1.2rem 0}
+.kpi{--k:var(--accent);background:var(--card);border:1px solid var(--line);border-left:5px solid var(--k);border-radius:.9rem;padding:.8rem 1rem;display:grid}
+.kpi:nth-child(2){--k:var(--teal)}.kpi:nth-child(3){--k:var(--blue)}.kpi:nth-child(4){--k:var(--berry)}
+.kpi b{font-size:1.9rem;color:var(--k)}.kpi span{color:var(--muted);font-size:.85rem}
+.chart{margin-bottom:1.5rem}
+.rand{display:grid;grid-template-columns:minmax(90px,30%) 1fr auto;gap:.6rem;align-items:center;margin:.4rem 0;font-size:.9rem}
+.track{background:var(--line);border-radius:99px;height:14px;overflow:hidden}
+.fill{background:var(--accent);height:100%;border-radius:99px}.fill.b{background:var(--blue)}
+#c_tip .fill{background:var(--teal)}#c_buc .fill{background:var(--amber)}#c_comp .fill{background:var(--berry)}
+.duo{display:grid;gap:3px}
+@media(max-width:600px){.rand{grid-template-columns:1fr auto}.rand .track,.rand .duo{grid-column:1/-1;order:3}}
+.e404{text-align:center;padding:3rem 1rem 4rem}
+.e404 .mare{font-size:clamp(5rem,22vw,10rem);font-weight:800;line-height:1;margin:0;background:var(--stripe);-webkit-background-clip:text;background-clip:text;color:transparent}
+.e404 h1{margin:.2rem 0 .6rem}.e404 .btn{margin:.25rem}
+.gs h2{margin-top:2rem}
+.sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.8rem}
+.sw{border:1px solid var(--line);border-radius:.8rem;overflow:hidden;background:var(--card)}
+.sw .c{height:70px;border-bottom:1px solid var(--line)}
+.sw .i{padding:.5rem .7rem;font-size:.85rem}
+.sw code{font-size:.8rem;color:var(--muted)}
+.demo{border:1px dashed var(--line);border-radius:.8rem;padding:1rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}
+.scale{display:flex;align-items:flex-end;gap:.5rem;margin:.6rem 0}
+.scale i{display:block;height:1.4rem;background:var(--accent);border-radius:3px}
+.admin{display:grid;gap:1rem;padding-bottom:3rem}
+.admin fieldset{border:1px solid var(--line);border-radius:.8rem;display:grid;gap:.6rem}
+.admin label{display:grid;gap:.2rem;font-size:.9rem;color:var(--muted)}
+.admin input:not([type=checkbox]),.admin select{padding:.6rem;border:1px solid var(--line);border-radius:.5rem;background:var(--card);color:var(--text);font-size:1rem}
+@media(min-width:700px){.admin fieldset{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- 9. subsol și rețele ---------- */
+footer{position:relative;background:var(--card);margin-top:2rem;padding:1.7rem 0;text-align:center}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--stripe)}
+footer p{margin:.6rem 0 0;font-size:.85rem;color:var(--muted)}
+.social{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap}
+.social a,.social .soc-off{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--accent);font-size:1.4rem;text-decoration:none;transition:transform .15s,background .15s,color .15s}
+.social a:hover{background:var(--accent);color:var(--on-accent);transform:translateY(-2px)}
+.social a[aria-label=GitHub]:hover{background:var(--text);color:var(--bg)}
+.social a[aria-label=Instagram]:hover{background:var(--berry);color:var(--on-accent)}
+.social a[aria-label=Facebook]:hover{background:var(--blue);color:var(--on-accent)}
+.social a[aria-label=Discord]:hover{background:var(--teal);color:var(--on-accent)}
+.social .soc-off{opacity:.75}
+
+/* ---------- 10. tipărire și mișcare redusă ---------- */
+@media print{
+  .nav,.skip,.fab,#chatBox,#cookie,.cookie,#cmpBar,.bar,.social,footer button,.toast,dialog,.butoane,.fav,.cmp,.linkuri,.topsec button,.chips{display:none!important}
+  body{background:#fff;color:#000;padding-top:0}
+  .top{background:none;border-bottom:2px solid #000;padding:0 0 .5rem}.top::after,footer::before{display:none}
+  main{animation:none;min-height:0}
+  .card{break-inside:avoid;box-shadow:none;border:1px solid #999;transform:none}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  a{color:#000;text-decoration:underline}
+  .tabel-wrap{overflow:visible;border:0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ---------- 9. galerie pe telefon, stări de încărcare și stări goale ---------- */
+.lb{position:relative}
+.lb .x{position:absolute;top:.5rem;right:.5rem;z-index:2;width:2.75rem;height:2.75rem;padding:0;border-radius:50%;font-size:1.15rem;line-height:1}
+.lb .strip{display:flex;gap:.4rem;overflow-x:auto;padding:.5rem .1rem;margin-top:.5rem;position:relative}
+.lb .strip button{flex:0 0 64px;height:48px;min-height:0;padding:0;border:2px solid transparent;border-radius:.5rem;overflow:hidden;background:var(--bg);opacity:.65}
+.lb .strip button.on{border-color:var(--accent);opacity:1}
+.lb .strip button img,.lb .strip button .thumb{width:100%;height:100%;max-height:none;object-fit:cover;font-size:1.4rem;border-radius:0;display:grid;place-items:center}
+.hint{display:none;text-align:center;color:var(--muted);font-size:.85rem;margin:.4rem 0}
+@media(hover:none){.hint{display:block}}
+#lbimg{touch-action:pan-y}
+body:has(dialog[open]){overflow:hidden}
+@media(max-width:600px){
+  dialog.lb{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0;padding:3.4rem .8rem .8rem;overflow-y:auto}
+  .lb .thumb{height:36vh;font-size:5rem}
+  .lb img{max-height:50vh}
+  .lbnav{position:sticky;bottom:0;background:var(--card);padding:.5rem 0;z-index:1}
+  .lbnav button{min-height:3rem;min-width:6.5rem}
+  .gal{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.sk{height:260px;border-radius:1rem;border:1px solid var(--line);background:linear-gradient(90deg,var(--card) 25%,color-mix(in srgb,var(--line) 70%,var(--card)) 50%,var(--card) 75%);background-size:200% 100%;animation:sk 1.2s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.gol-stare{grid-column:1/-1;text-align:center;padding:2.2rem 1rem;border:2px dashed var(--line);border-radius:1rem;background:var(--card)}
+.gol-stare h2{margin:.2rem 0 .6rem}.gol-stare p{margin:.4rem 0}.gol-stare .butoane{justify-content:center;margin-top:1rem}
+.gol-ic{font-size:2.4rem;margin:0}
+.chips-f{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
+.chip-f{padding:.2rem .65rem;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:.85rem}
+.gol-td{text-align:center;padding:2rem 1rem}
+.form select{padding:.7rem;border:2px solid var(--line);border-radius:.6rem;background:var(--card);color:var(--text);font-size:1rem;font-family:inherit}
+
+.kbd-hint{font-size:.85rem;color:var(--muted);margin:.4rem 0 0}
+@media(hover:none) and (pointer:coarse){.kbd-hint{display:none}}   /* pe telefon nu există taste F */
+
+/* stare "Deschis acum": culorile vin din temă, ca să fie lizibil și în modul întunecat */
+.tag.deschis{background:color-mix(in srgb,#1f9d57 18%,var(--card));color:var(--text);border:1px solid #1f9d57;font-weight:600}
+.tag.inchis{color:var(--muted);border:1px solid var(--line)}
+
+/* ecrane foarte înguste (320px): câmpurile și butoanele nu mai depășesc lățimea paginii */
+.form{grid-template-columns:minmax(0,1fr)}
+.form input:not([type=checkbox]),.form textarea,.form select{width:100%;min-width:0;box-sizing:border-box}
+.acte{grid-template-columns:repeat(2,minmax(0,1fr))}
+.acte button{min-width:0;padding-left:.4rem;padding-right:.4rem}
+.form .check{white-space:normal;align-items:flex-start}
+.form select,.form select option{font-weight:400}
+@media(max-width:700px){footer{padding-bottom:5.5rem}}   /* butoanele plutitoare (↑ ↓ ? 💬) nu mai acoperă ultimele rânduri din subsol */
+
+/* notele nu se mai întind pe înălțimea cardului când alte carduri din rând sunt mai înalte (căsuțele goale erau prea mari) */
+.note{align-content:flex-start;align-items:flex-start}
+
+.bi{width:1em;height:1em;fill:currentColor;vertical-align:-.125em;flex:none}
+
+/* ---------- 11. finisaje vizuale (doar pe ecran; tipărirea rămâne neschimbată) ----------
+   Nu schimbă culorile de text și de fundal (contrastele măsurate rămân valabile): doar
+   umbre pe straturi, tipografie, ritm, stări la atingere/hover și elemente native temate. */
+@media screen{
+  :root{color-scheme:light;
+    --shadow-sm:0 1px 2px rgba(38,26,18,.06),0 2px 8px rgba(38,26,18,.05);
+    --shadow:0 2px 4px rgba(38,26,18,.05),0 16px 30px -10px rgba(38,26,18,.22)}
+  @media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--shadow-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.25)}}
+  :root[data-theme=dark]{color-scheme:dark;--shadow-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.25)}
+
+  /* tipografie */
+  html{scroll-padding-top:calc(var(--nav) + 1rem);scrollbar-gutter:stable;-webkit-text-size-adjust:100%}
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3{text-wrap:balance}
+  h1{font-weight:800}
+  p,li{text-wrap:pretty}
+  a{text-underline-offset:.18em;text-decoration-thickness:.08em}
+  .sub{font-size:1.05rem;max-width:62ch}
+  .prose p,.prose li{line-height:1.7}
+  td,th,.kpi b,#numar{font-variant-numeric:tabular-nums}
+
+  /* antet: aer în plus și o lumină caldă în colț, în spatele textului (nu îl afectează) */
+  .top{padding:2.8rem 0 2.1rem;isolation:isolate}
+  .top::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(60% 130% at 88% 0%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 70%)}
+
+  /* carduri și suprafețe: umbre pe straturi, ridicare discretă */
+  .card{border-radius:1rem;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card:focus-within{box-shadow:var(--shadow)}
+  .card h2{font-size:1.2rem}
+  .topsec,.kpi,.tabel-wrap{box-shadow:var(--shadow-sm)}
+
+  /* butoane: țintă tactilă de 44 px, apăsare vizibilă */
+  .btn,.acte button,.butoane button{min-height:2.75rem}
+  button,.btn{transition:filter .15s,transform .12s,box-shadow .15s,border-color .15s,background-color .15s}
+  button:active,.btn:active{transform:translateY(1px) scale(.985)}
+  .fab{box-shadow:var(--shadow)}
+  .fab:hover{transform:translateY(-2px)}
+  .menu a{transition:background-color .15s}
+
+  /* câmpuri: căutarea ca o pastilă, hover și focus clare */
+  #cauta{border-radius:999px;padding-inline:1.3rem}
+  input[type=search],select,.lbl input,.form input:not([type=checkbox]),.form textarea,.form select,#chatForm input,#navForm input,.admin input:not([type=checkbox]),.admin select{transition:border-color .15s,box-shadow .15s}
+  input[type=search]:hover,select:hover,.lbl input:hover,.form input:not([type=checkbox]):hover,.form textarea:hover,.form select:hover{border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+  input:focus-visible,textarea:focus-visible,select:focus-visible{border-color:var(--accent)}
+  ::placeholder{color:var(--muted);opacity:1}
+
+  /* ferestre și chat */
+  dialog{border-radius:1.2rem;box-shadow:0 24px 60px -14px rgba(0,0,0,.5)}
+  dialog::backdrop{background:rgba(20,12,6,.55);backdrop-filter:blur(3px)}
+  dialog[open],#chatBox.open{animation:aparitie .2s ease-out}
+  #chatBox{border-radius:1.1rem}
+  .msg{line-height:1.45}
+  #chatLog,.tabel-wrap,.lb .strip{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+
+  /* tabel: rând evidențiat la hover */
+  tbody tr{transition:background-color .12s}
+  tbody tr:hover{background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+}

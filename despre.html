@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Despre | Mâncare în Timișoara</title>
+<meta name="description" content="Despre proiect: cum e făcut ghidul, sursele datelor și tehnologiile folosite.">
+<meta property="og:title" content="Despre | Mâncare în Timișoara">
+<meta property="og:description" content="Despre proiect: cum e făcut ghidul, sursele datelor și tehnologiile folosite.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Despre proiect</h1><p class="sub">Un ghid personal de mâncare din Timișoara.</p></div></header>
+<main class="wrap prose">
+ <h2>Ce e site-ul ăsta</h2>
+ <p>Un ghid de locuri de mâncat din Timișoara, cu nota publică (Google Maps și Tripadvisor) alături de părerea mea pentru locurile la care am fost. Nu e un top copiat: nota mea e separată și marcată clar.</p>
+ <h2>Video</h2>
+ <iframe class="video" src="https://www.youtube.com/embed/VIDEO_ID" title="Video" allowfullscreen loading="lazy"></iframe>
+ <!-- Înlocuiește VIDEO_ID cu ID-ul clipului tău (sau rulează python tools/seteaza.py --video LINK) -->
+ <h2>Surse și transparență</h2>
+ <p>Lista locurilor se bazează pe surse publice și include, acolo unde au fost importate, date © OpenStreetMap contributors (licență ODbL). Notele publice vin din Google Maps și Tripadvisor și se pot schimba. Locurile la care nu am fost apar marcate „încă n-am fost". Dacă un loc va fi sponsorizat, va fi marcat clar.</p>
+ <h2>Confidențialitate</h2>
+ <p>Google Analytics pornește doar dacă accepți bannerul de cookie-uri; poți schimba alegerea oricând din subsol. Favoritele, tema și mărimea textului se salvează doar în browserul tău. Poziția ta (butonul „Lângă mine”) rămâne în browser și nu e trimisă nicăieri.</p>
+ <p id="priv-form">Formularele de contact și de recomandare nu trimit date nicăieri.</p>
+ <p>Vezi și <a href="ghid-stil.html">ghidul de stil</a> al site-ului.</p>
+ <h2>Tehnologii</h2>
+ <ul><li>HTML5, CSS3 (variabile CSS, grid, flexbox, mobil întâi)</li><li>JavaScript fără biblioteci (fetch, DOM, elementul &lt;dialog&gt;)</li>
+ <li>Date într-un fișier JSON, citit de pagini</li><li>Bootstrap Icons (doar pentru iconițele sociale)</li><li>Google Analytics, Google Maps Embed</li></ul>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script>
+// cât timp videoul nu e setat, în loc de un player cu eroare apare un mesaj prietenos
+(function(){var f=document.querySelector("iframe.video");if(f&&/VIDEO_ID/.test(f.src)){var d=document.createElement("div");d.className="video video-gol";d.setAttribute("role","img");d.setAttribute("aria-label","Video în curând");d.textContent="🎬 Videoul va fi adăugat în curând.";f.replaceWith(d)}})();
+</script>
+</body>
+</html>

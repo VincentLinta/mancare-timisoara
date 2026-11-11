@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statistici | Mâncare în Timișoara</title>
+<meta name="description" content="Statistici despre ghid: locuri pe tip, bucătării, nota mea vs nota publică.">
+<meta property="og:title" content="Statistici | Mâncare în Timișoara">
+<meta property="og:description" content="Statistici despre ghid: locuri pe tip, bucătării, nota mea vs nota publică.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<link rel="preload" href="data/locuri.json" as="fetch" crossorigin>
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Statistici</h1><p class="sub">Cifre despre ghid și despre cât de completat e.</p></div></header>
+<main class="wrap">
+ <section class="kpis" id="kpi" aria-label="Cifre cheie"></section>
+ <h2>Locuri pe tip</h2><div id="c_tip" class="chart"></div>
+ <h2>Bucătării (top 8)</h2><div id="c_buc" class="chart"></div>
+ 
+ <h2>Nota mea vs nota publică</h2>
+ <p class="sub">Portocaliu = nota mea (din 10), albastru = nota publică înmulțită cu 2. Primele rânduri sunt locurile unde părerea mea diferă cel mai mult.</p>
+ <div id="c_cmp" class="chart"></div>
+ <h2>Cât de completat e ghidul</h2><div id="c_comp" class="chart"></div>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/statistici.js"></script>
+</body>
+</html>

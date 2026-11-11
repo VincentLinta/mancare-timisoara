@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+  <title>Editor locuri (uz personal)</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top"><div class="wrap"><a class="back" href="index.html">← Site</a><h1>Editor locuri</h1>
+    <p class="sub">Unealtă locală: completezi datele, apoi descarci locuri.json și îl pui în data/ peste cel vechi.</p></div></header>
+  <main class="wrap admin">
+    <label>Alege locul <select id="alege"></select></label>
+    <fieldset><legend>Date de pe Google Maps</legend>
+      <label>Nota Maps <input id="f_rating" type="number" step="0.1" min="1" max="5"></label>
+      <label>Nr. review-uri Maps <input id="f_nr" type="number" min="0"></label>
+      <label>place_id <input id="f_place" placeholder="TODO"></label>
+      <label>Zonă <input id="f_zona"></label>
+      <label>Adresă <input id="f_adresa"></label>
+    </fieldset>
+    <fieldset><legend>Părerea mea</legend>
+      <label class="check"><input id="f_vizitat" type="checkbox"> Am fost aici</label>
+      <label>Nota mea (1-10) <input id="f_nota" type="number" min="1" max="10"></label>
+      <label>Ce am mâncat <input id="f_mancat"></label>
+      <label>Cât am plătit (RON) <input id="f_platit" type="number" min="0"></label>
+      <label>Plusuri <input id="f_plus"></label>
+      <label>Minusuri <input id="f_minus"></label>
+      <label>Când (ex. 2026-09) <input id="f_data"></label>
+    </fieldset>
+    <fieldset><legend>Facilități și contact</legend>
+      <label class="check"><input type="checkbox" data-o="terasa"> Terasă</label><label class="check"><input type="checkbox" data-o="vegetarian"> Vegetarian</label>
+      <label class="check"><input type="checkbox" data-o="vegan"> Vegan</label><label class="check"><input type="checkbox" data-o="livrare"> Livrare</label>
+      <label class="check"><input type="checkbox" data-o="takeaway"> Takeaway</label><label class="check"><input type="checkbox" data-o="accesibil"> Accesibil</label>
+      <label>Telefon <input id="f_tel"></label><label>Site <input id="f_web"></label><label>Program <input id="f_prog"></label>
+    </fieldset>
+    <p class="butoane"><button id="aplica" type="button">Aplică la acest loc</button><button id="descarca" type="button">⬇ Descarcă locuri.json</button></p>
+    <p id="msg" role="status"></p>
+    <fieldset><legend>Loc nou</legend>
+      <label>Nume <input id="n_nume"></label>
+      <label>Tip <select id="n_tip"><option>restaurant</option><option>fast-food</option><option>pub</option><option>cafenea</option></select></label>
+      <p class="butoane"><button id="adauga" type="button">Adaugă locul</button></p>
+    </fieldset>
+  </main>
+  <script src="js/common.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

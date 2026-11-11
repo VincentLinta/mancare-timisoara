@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galerie | Mâncare în Timișoara</title>
+<meta name="description" content="Galerie foto cu locurile din ghid.">
+<meta property="og:title" content="Galerie | Mâncare în Timișoara">
+<meta property="og:description" content="Galerie foto cu locurile din ghid.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<link rel="preload" href="data/locuri.json" as="fetch" crossorigin>
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Galerie</h1><p class="sub">Apasă pe un loc ca să-l vezi mărit. Previous/Next sau săgețile de la tastatură.</p></div></header>
+<main class="wrap"><div id="gal" class="gal" aria-busy="true"><p class="gol-msg" role="status">Se încarcă galeria…</p></div></main>
+<dialog id="lb" class="lb" aria-label="Imagine mărită">
+ <button id="close2" type="button" class="x" aria-label="Închide">✕</button>
+ <div id="lbimg"></div><p id="lbcap"></p>
+ <div class="lbnav"><button id="prev" type="button">← Previous</button><span id="lbn" aria-live="polite"></span><button id="next" type="button">Next →</button></div>
+ <div id="lbstrip" class="strip" role="group" aria-label="Miniaturi"></div>
+ <p id="lbhint" class="hint">Glisează stânga sau dreapta ca să schimbi imaginea.</p>
+ <p><button id="close" type="button" class="icon">Închide</button></p>
+</dialog>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/galerie.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Mâncare în Timișoara</title>
+<meta name="description" content="Contact: scrie-mi o întrebare, o sugestie sau o greșeală găsită în ghidul de locuri de mâncat din Timișoara.">
+<meta property="og:title" content="Contact | Mâncare în Timișoara">
+<meta property="og:description" content="Contact: scrie-mi o întrebare, o sugestie sau o greșeală găsită în ghidul de locuri de mâncat din Timișoara.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body data-form="contact">
+<header class="top"><div class="wrap"><h1>Contact</h1><p class="sub">Ai o întrebare, o sugestie sau ai găsit o greșeală? Scrie-mi. Câmpurile cu * sunt obligatorii.</p></div></header>
+<main class="wrap">
+ <div id="ok" class="ok" role="status" hidden>Mulțumesc! Mesajul tău a fost validat.</div>
+ <div id="sendErr" class="eroare" role="alert" hidden></div>
+ <form id="cf" class="form" novalidate>
+  <label>Nume *<input id="nume" aria-describedby="e_nume" aria-required="true" autocomplete="name"><span class="err" aria-live="polite" id="e_nume"></span></label>
+  <label>Email *<input id="email" aria-describedby="e_email" aria-required="true" type="email" autocomplete="email"><span class="err" aria-live="polite" id="e_email"></span></label>
+  <label>Telefon (opțional)<input id="tel" data-optional aria-describedby="e_tel" type="tel" autocomplete="tel" placeholder="07xx xxx xxx"><span class="err" aria-live="polite" id="e_tel"></span></label>
+  <label>Subiect *<select id="subiect" aria-describedby="e_subiect" aria-required="true"><option value="">Alege un subiect…</option><option value="Întrebare despre un loc">Întrebare despre un loc</option><option value="Greșeală în date">Greșeală în date</option><option value="Sugestie pentru site">Sugestie pentru site</option><option value="Altceva">Altceva</option></select><span class="err" aria-live="polite" id="e_subiect"></span></label>
+  <label>Mesaj *<textarea id="msg" aria-describedby="e_msg" aria-required="true" rows="5"></textarea><span class="err" aria-live="polite" id="e_msg"></span></label>
+  <label class="check"><input type="checkbox" id="acord" aria-describedby="e_acord">&nbsp;Sunt de acord cu prelucrarea datelor *</label><span class="err" aria-live="polite" id="e_acord"></span>
+  <input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+  <button type="submit">Trimite mesajul</button> <span id="stare" role="status"></span>
+ </form>
+ <p class="sub">Vrei să propui un loc nou în ghid? Folosește pagina <a href="recomanda.html">Recomandă</a>.</p>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/recomanda.js"></script>
+</body>
+</html>

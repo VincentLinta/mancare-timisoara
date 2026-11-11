@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghid de stil | Mâncare în Timișoara</title>
+<meta name="description" content="Ghid de stil: culori, tipografie și componente ale site-ului.">
+<meta property="og:title" content="Ghid de stil | Mâncare în Timișoara">
+<meta property="og:description" content="Ghid de stil: culori, tipografie și componente ale site-ului.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Ghid de stil</h1><p class="sub">Culorile, tipografia și componentele site-ului, într-un singur loc.</p></div></header>
+<main class="wrap prose gs">
+ <h2>Culori</h2>
+ <p>Valorile se citesc din CSS și se actualizează când schimbi tema (🌓). Raportul de contrast e calculat față de fundalul potrivit; minimul WCAG pentru text este 4.5:1.</p>
+ <div id="sw" class="sw-grid"></div>
+ <p>Culori cu rol: accentul (teracotă) e pentru acțiuni și fast-food, turcoazul pentru restaurante și facilități, albastrul pentru Maps, zone și cafenele, chihlimbarul pentru bucătării și Topul meu, mov-rozul pentru pub și bar. Culoarea nu e singura informație: fiecare etichetă are și text.</p>
+
+ <h2>Tipografie</h2>
+ <p>Font de sistem (system-ui), linie de 1.65, text de bază 16 px (reglabil cu A-/A+).</p>
+ <div class="demo" style="display:block">
+  <p style="font-size:clamp(1.6rem,6vw,2.6rem);font-weight:800;margin:.2rem 0;line-height:1.1">Titlu de pagină (h1)</p>
+  <p style="font-size:1.4rem;font-weight:700;margin:.4rem 0">Titlu de secțiune (h2)</p>
+  <p>Text de bază: ghid personal de locuri de mâncat din Timișoara.</p>
+  <p class="adresa">Text mic și secundar, pentru detalii.</p>
+ </div>
+
+ <h2>Butoane</h2>
+ <div class="demo">
+  <button type="button">Buton principal</button>
+  <button type="button" class="icon">Buton cu contur</button>
+  <button type="button" class="icon" aria-label="Buton-icon">🌓</button>
+  <a class="btn" href="#">Link-buton</a>
+ </div>
+ <p>Hover întunecă ușor butonul; focusul de tastatură are un inel dublu, vizibil pe ambele teme.</p>
+
+ <h2>Etichete și note</h2>
+ <div class="demo" style="display:block">
+  <div class="taguri t-r"><span class="tag tip">restaurant</span><span class="tag cui">italian</span><span class="tag zona">Piața Unirii</span><span class="tag fac">Terasă</span></div>
+  <div class="note" style="margin-top:.6rem"><span class="nota maps">4.5 ★ <small>Maps (120)</small></span><span class="nota ta">4.6 ★ <small>Tripadvisor (74)</small></span><span class="nota mea">8/10 <small>nota mea</small></span><span class="nota gol">fără notă publică</span><span class="nota gol">încă n-am fost</span></div>
+ </div>
+
+ <h2>Card</h2>
+ <article class="card t-r" style="max-width:340px">
+  <div class="thumb ph" style="background:linear-gradient(135deg,hsl(20 70% 55%),hsl(60 70% 38%))" role="img" aria-label="Pizzeria Exemplu">🍕</div>
+  <div class="body"><h2>Pizzeria Exemplu</h2>
+   <div class="taguri"><span class="tag tip">restaurant</span><span class="tag cui">pizza</span></div>
+   <div class="note"><span class="nota maps">4.4 ★ <small>Maps (850)</small></span><span class="nota mea">9/10 <small>nota mea</small></span></div></div>
+ </article>
+ <p>Imaginea e un placeholder ilustrat (emoji și culoare derivate din nume), deoarece site-ul nu folosește poze.</p>
+
+ <h2>Formular</h2>
+ <div class="form" style="margin:0 0 1rem">
+  <label>Câmp de text<input value="Exemplu"></label>
+  <label>Câmp cu eroare<input class="invalid" aria-invalid="true" value="x"><span class="err">Scrie un nume de cel puțin 3 litere.</span></label>
+  <label>Câmp valid<input class="valid" value="Ana Pop"></label>
+  <label class="check"><input type="checkbox" checked>&nbsp;Bifă</label>
+ </div>
+ <p>Mesajul de eroare apare sub câmp și e anunțat de cititoarele de ecran.</p>
+
+ <h2>Spațiere și grilă</h2>
+ <p>Scara de spațiere folosește multipli de 0.25 rem. Cardurile sunt pe 1 coloană (telefon), 2 (de la 700 px) și 3 (de la 1000 px); meniul întreg apare de la 1100 px.</p>
+ <div class="scale" aria-hidden="true"><i style="width:.25rem"></i><i style="width:.5rem"></i><i style="width:.75rem"></i><i style="width:1rem"></i><i style="width:1.5rem"></i><i style="width:2rem"></i><i style="width:3rem"></i></div>
+
+ <h2>Reguli de accesibilitate</h2>
+ <ul>
+  <li>Contrast minim 4.5:1 pentru text, verificat pe ambele teme.</li>
+  <li>Ținte tactile de cel puțin 44 px la butoanele plutitoare.</li>
+  <li>Informația nu depinde doar de culoare (simboluri și text lângă culori).</li>
+  <li>Navigare completă de la tastatură, cu „Sari la conținut” și focus vizibil.</li>
+  <li>Respectă „reduce motion” și setarea de temă a sistemului.</li>
+ </ul>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/ghid-stil.js"></script>
+</body>
+</html>

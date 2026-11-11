@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabel comparativ | Mâncare în Timișoara</title>
+<meta name="description" content="Toate locurile într-un tabel sortabil: tip, zonă, note.">
+<meta property="og:title" content="Tabel comparativ | Mâncare în Timișoara">
+<meta property="og:description" content="Toate locurile într-un tabel sortabil: tip, zonă, note.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<link rel="preload" href="data/locuri.json" as="fetch" crossorigin>
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Tabel comparativ</h1><p class="sub">Toate locurile într-un singur loc. Apasă pe titlul unei coloane ca să sortezi.</p></div></header>
+<main class="wrap">
+ <label class="lbl">Filtrează tabelul <input id="tq" type="search" placeholder="nume, tip, bucătărie, zonă…"></label>
+ <p id="tnr" role="status"></p>
+ <div class="tabel-wrap"><table><caption>Tabel comparativ al locurilor: tip, zonă și note (Maps, Tripadvisor, a mea)</caption>
+ <thead id="th"></thead><tbody id="tb"><tr><td colspan="9" class="gol-msg">Se încarcă…</td></tr></tbody></table></div>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/tabel.js"></script>
+</body>
+</html>

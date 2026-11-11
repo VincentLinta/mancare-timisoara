@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hartă | Mâncare în Timișoara</title>
+<meta name="description" content="Harta locurilor de mâncat din Timișoara.">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<meta property="og:title" content="Hartă | Mâncare în Timișoara">
+<meta property="og:description" content="Harta locurilor de mâncat din Timișoara.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<link rel="preload" href="data/locuri.json" as="fetch" crossorigin>
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>Hartă</h1><p class="sub">Toate locurile cu coordonate, pe OpenStreetMap. Apasă pe un marker pentru detalii.</p></div></header>
+<main class="wrap">
+ <label class="lbl">Caută pe hartă <select id="hp" style="padding:.7rem;border-radius:.6rem;border:1px solid var(--line);background:var(--card);color:var(--text);font-size:1rem"></select></label>
+ <p id="hmsg" class="sub" role="status"></p>
+ <div id="lm" class="mapa" hidden></div>
+ <iframe id="hm" class="mapa" title="Hartă Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+ <p><a id="hl" class="btn" href="#" target="_blank" rel="noopener">Deschide în Google Maps ↗</a></p>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="js/harta.js"></script>
+</body>
+</html>

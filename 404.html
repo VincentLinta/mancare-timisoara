@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+// 404.html e afișat pentru ORICE adresă greșită (ex. /repo/a/b/c), deci setăm rădăcina site-ului ca să se încarce css/ și js/
+(function(){
+ var REPO_ROOT=null;                       // dacă site-ul e la rădăcina domeniului (username.github.io), pune "/"
+ var p=location.pathname.split("/").filter(Boolean),r="/";
+ if(REPO_ROOT)r=REPO_ROOT;
+ else if(/\.github\.io$/.test(location.hostname)&&p.length)r="/"+p[0]+"/";    // site de proiect: username.github.io/NUME-REPO/
+ if(/\/404\.html$/.test(location.pathname))r=location.pathname.replace(/404\.html$/,"");   // deschis direct, pentru test
+ var b=document.createElement("base");b.href=r;document.head.appendChild(b);
+})();
+</script>
+<title>Pagină negăsită | Mâncare în Timișoara</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Pagina căutată nu există.">
+<meta property="og:title" content="Pagină negăsită | Mâncare în Timișoara">
+<meta property="og:description" content="Pagina căutată nu există.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:image" content="https://SITE-URL/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mâncare în Timișoara: ghid personal de locuri de mâncat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://SITE-URL/og.png">
+<meta name="theme-color" content="#fffaf3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Analytics: ID-ul se completează cu tools/seteaza.py; scriptul pornește doar după acordul din banner -->
+<meta name="ga-id" content="G-XXXXXXXXXX">
+<script src="js/analytics.js" defer></script>
+</head>
+<body>
+<main class="wrap e404" id="e404">
+ <p class="mare" aria-hidden="true">404</p>
+ <h1>Locul ăsta nu e pe listă 🍽️</h1>
+ <p class="sub">Adresa pe care ai încercat-o nu există sau a fost mutată. Poate ți-e doar foame și ai greșit un click.</p>
+ <p class="butoane" style="justify-content:center">
+  <a class="btn" href="index.html">← Înapoi la listă</a>
+  <a class="btn" href="tabel.html">Tabel</a>
+  <a class="btn" href="harta.html">Hartă</a>
+  <a class="btn" href="index.html?fav=1">Favoritele mele ♥</a>
+ </p>
+ <p class="sub">Sau scrie un loc în căutarea de sus.</p>
+</main>
+<script src="js/common.js"></script>
+<script src="js/program.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/i18n.js"></script>
+</body>
+</html>
