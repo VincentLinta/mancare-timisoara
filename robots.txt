@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
-Sitemap: https://SITE-URL/sitemap.xml
+Sitemap: https://vincentlinta.github.io/mancare-timisoara/sitemap.xml

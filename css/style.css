@@ -241,6 +241,8 @@ footer p{margin:.6rem 0 0;font-size:.85rem;color:var(--muted)}
 .social a[aria-label=GitHub]:hover{background:var(--text);color:var(--bg)}
 .social a[aria-label=Instagram]:hover{background:var(--berry);color:var(--on-accent)}
 .social a[aria-label=Facebook]:hover{background:var(--blue);color:var(--on-accent)}
+.social a[aria-label=YouTube]:hover{background:#c4302b;color:#fff}
+.social a[aria-label=TikTok]:hover{background:var(--text);color:var(--bg)}
 .social a[aria-label=Discord]:hover{background:var(--teal);color:var(--on-accent)}
 .social .soc-off{opacity:.75}
 
