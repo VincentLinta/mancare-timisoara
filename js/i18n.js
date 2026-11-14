@@ -90,6 +90,10 @@
     // ---- chat ----
     [`Salut! Te ajut să alegi un loc din Timișoara. Ce cauți?`, `Hi! I'll help you pick a place in Timișoara. What are you looking for?`],
     [`Salut! Întreabă-mă de genul "ceva italian", "pizza în centru" sau "unde s-a mâncat bine".`, `Hi! Ask me things like "something Italian", "pizza downtown" or "where was the food good".`],
+    [`Pentru iubitorii de crispy-uri, din locurile la care am fost:`, `For crispy lovers, from the places I've been to:`],
+    [`Recomandarea mea nr. 1 pentru crispy-uri: Fain Chickenz (Buziașului).`, `My #1 pick for crispy food: Fain Chickenz (Buziașului).`],
+    [`Pentru o noapte lungă, din locurile deschise non-stop:`, `For a long night, from the places open 24/7:`],
+    [`Părerea mea: la 4 dimineața, Shaorma 100% și Burger 100% se transformă din 7/10 în 10/10 😄`, `My take: at 4 a.m., Shaorma 100% and Burger 100% go from 7/10 to 10/10 😄`],
     [`Cu plăcere! 🍽️`, `You're welcome! 🍽️`], [`Ți-aș propune:`, `I'd suggest:`], [`listă`, `list`],
     [`N-am găsit nimic cu criteriile astea. Încearcă altceva.`, `I found nothing with those criteria. Try something else.`],
     [`Nu am înțeles. Încearcă: "ceva italian", "pizza în centru", "fast-food", "unde am fost" sau "cel mai bun".`, `I didn't get that. Try: "something Italian", "pizza downtown", "fast food", "where I've been" or "the best".`],

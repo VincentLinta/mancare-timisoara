@@ -180,23 +180,29 @@ document.addEventListener('DOMContentLoaded',()=>{
   const m=D.filter(l=>{const n=' '+tokn(l.nume)+' ';return w.every(x=>n.includes(x))});
   return m.length&&m.length<=3?m:[]}
  // greșeli de scriere în numele unui loc: fiecare cuvânt din întrebare trebuie să fie (aproape) un cuvânt din numele locului
- function dupaNumeAprox(q){
-  const w=tokn(q).split(' ').filter(x=>x.length>=5&&!STOP.has(x)&&!FOOD.test(x));
-  if(!w.length||w.length>3)return [];
+ // scriere „după ureche”: ck/ch/c = k, z = s, y = i, litere duble (ex: „fain chikens” = „Fain Chickenz”); cuvintele de 4 litere se potrivesc doar exact/fonetic
+const fon=x=>x.replace(/y/g,'i').replace(/w/g,'v').replace(/ck/g,'k').replace(/ch/g,'k').replace(/c/g,'k').replace(/z/g,'s').replace(/(.)\1+/g,'$1');
+function dupaNumeAprox(q,min=1){
+  const w=tokn(q).split(' ').filter(x=>x.length>=4&&!STOP.has(x)&&!FOOD.test(x));
+  if(w.length<min||w.length>3)return [];
   const m=D.filter(l=>{const nt=tokn(l.nume).split(' ').filter(x=>x.length>=4);
-   return w.every(x=>nt.some(n=>n===x||(n[0]===x[0]&&Math.abs(n.length-x.length)<=1&&dist(x,n)<=(x.length>=9?2:1))))});
+   return w.every(x=>nt.some(n=>n===x||fon(n)===fon(x)||(x.length>=5&&n[0]===x[0]&&Math.abs(n.length-x.length)<=1&&dist(x,n)<=(x.length>=9?2:1))))});
   return m.length&&m.length<=3?m:[]}
  const infoLoc=l=>{const np=notaPublica(l),nm=l.parerea_mea?.nota;
   return [np!=null?`<br><small>Nota publică: ${esc(String(np))} ★</small>`:'',nm!=null?`<br><small>Nota mea: ${esc(String(nm))}/10</small>`:'',np==null&&nm==null?'<br><small>Încă nu are note în ghid.</small>':''].join('')};
  const POFTA='<br>Poftă bună! 🍽️';
  function raspunde(t){
-  const q0=qs(t),cor=corecteaza(q0),q=cor.q,raw=qn(t).replace(/[?!.,;:()]/g,' ');   // q0 = ce a scris utilizatorul (pentru nume de locuri), q = cu greșelile corectate
+  const q0=qs(t),cor=corecteaza(q0),q=cor.q,raw=qn(t).replace(/[?!.,;:()]/g,' '),nt=norm(t).replace(/[?!.,;:()]/g,' ');   // nt = ce a scris utilizatorul, fără transformări (pentru nume de locuri: „chicken” nu devine „pui”)   // q0 = ce a scris utilizatorul (pentru nume de locuri), q = cu greșelile corectate
   const corNota=cor.sch.length?`<br><small>Am corectat: ${esc(cor.sch.join(', '))}</small>`:'';
   if(/^(ajutor|help)\b|^(ce poti( sa faci)?|ce stii sa faci|ce faci|cum functionezi|cum te folosesc)\s*$/.test(q)){chips(INIT);return 'Te pot ajuta să alegi un loc: spune-mi bucătăria (italian, pizza, burgeri…), tipul (restaurant, cafenea, fast-food), zona (Piața Unirii, Cetate = centrul…), facilitățile (vegan, terasă, livrare) sau „cel mai bun”, „unde am fost”, „deschis acum”. Poți scrie și cu greșeli mici de scriere, încerc să înțeleg.'}
   if(/^(salut|buna|hei|hello|hey|hi\b|servus|salutare|ceau)/.test(q)){chips(INIT);return 'Salut! Sunt asistentul de mâncare din Timișoara. Întreabă-mă de genul "ceva italian", "pizza în centru" sau "unde s-a mâncat bine". Poftă bună! 🍽️'}
   if(/multumesc|mersi|merci|thanks|thank you/.test(q))return 'Cu plăcere! Poftă bună! 🍽️';
   if(/^(pa\b|la revedere|bye|goodbye|cu bine|o zi buna|noapte buna|see you)/.test(q))return 'Poftă bună și pe curând! 👋';
   if(/cine esti|cum te cheama|ce esti|who are you|esti (un )?(robot|om|bot)/.test(q))return 'Sunt asistentul ghidului „Mâncare în Timișoara”: te ajut să alegi unde să mănânci. Poftă bună! 🍽️';
+  // noaptea / după petrecere („shaorma de la 3 noaptea”, „burgerul bețivului”, club, non-stop…): propune locurile deschise 24/7, cu părerea mea
+  if(/\bbeat\w*|\bbet(iv|ie|ii)\w*|\bmahmur\w*|\bclub\w*|petrec\w*|\bparty\b|noaptea|\bnoapte\b|\bnon ?stop\b|24 ?\/ ?7|\btarziu\b|miezul noptii|\b[0-5] dimineata|dimineata devreme/.test(raw)&&!/noapte buna/.test(raw)){
+    const nn=D.filter(l=>/24\/7/.test(l.program||'')).sort((a,b)=>(b.parerea_mea?.nota??0)-(a.parerea_mea?.nota??0));
+    if(nn.length){ctx=null;chips(INIT);return `Pentru o noapte lungă, din locurile deschise non-stop:<br>• ${nn.slice(0,3).map(l=>lista(l)+infoLoc(l)).join('<br>• ')}${nn.length>3?`<br><small>…și încă ${nn.length-3} în <a href="index.html">listă</a>.</small>`:''}<br><small>Părerea mea: la 4 dimineața, Shaorma 100% și Burger 100% se transformă din 7/10 în 10/10 😄</small>${POFTA}`}}
   if(/(ce|ce sa) (sa )?(mananc|mancam)|mi.?e foame|sunt flamand|nu stiu ce|surprinde|sugereaza|hungry|surprise me|starving|what should i eat/.test(q)){
    let pool=D.slice();if(typeof deschisAcum==='function'&&D.some(l=>deschisAcum(l.program)!==null)){const o=pool.filter(l=>deschisAcum(l.program)===true);if(o.length)pool=o}
    const alese=[];while(alese.length<3&&pool.length){alese.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0])}
@@ -207,18 +213,24 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(cz.zone.length){const zz=cz.zone.map(norm),f=lst.filter(l=>zz.includes(norm(l.zona||'')));if(f.length)lst=f;else pre=`N-am găsit ${br.nume} în ${cz.zone.join(', ')}. Dar iată unde îl găsești:`}
       chips(INIT);const arata=lst.slice(0,6),rest=lst.length-arata.length;
       return `${pre||`Am găsit ${lst.length} locuri ${br.nume}:`}<br>• ${arata.map(lista).join('<br>• ')}${rest>0?`<br><small>…și încă ${rest} în <a href="index.html?q=${encodeURIComponent(br.nume)}">listă</a>.</small>`:''}${POFTA}`} }
-  { const gasit=dupaNume(raw,true);   // întrebare cu numele complet al unui loc
+  { const gasit=dupaNume(nt,true);   // întrebare cu numele complet al unui loc
     if(gasit.length){chips(INIT);return gasit.length===1?`Am găsit: ${lista(gasit[0])}${infoLoc(gasit[0])}${POFTA}`:`Am găsit mai multe locuri cu acest nume:<br>• ${gasit.slice(0,3).map(lista).join('<br>• ')}${POFTA}`} }
+  // iubitorii de crispy-uri: locurile cu pui la care am fost, cu Fain Chickenz pe primul loc
+  if(/crisp|crocant|pui pane|tenders|strips/.test(nt)){
+   const cr=D.filter(l=>taguriBuc(l).includes('pui')&&l.parerea_mea?.nota!=null).sort((a,b)=>(b.id==='fain-chickenz')-(a.id==='fain-chickenz')||b.parerea_mea.nota-a.parerea_mea.nota);
+   if(cr.length){ctx=null;chips(INIT);return `Pentru iubitorii de crispy-uri, din locurile la care am fost:<br>• ${cr.slice(0,3).map(l=>lista(l)+infoLoc(l)).join('<br>• ')}<br><small>Recomandarea mea nr. 1 pentru crispy-uri: Fain Chickenz (Buziașului).</small>${POFTA}`}}
+  // nume scris aproximativ, din cel puțin 2 cuvinte („fain chikens”): propune locul înainte de orice altă căutare
+  { const ap=dupaNumeAprox(nt,2); if(ap.length){chips(INIT);return `Poate te referi la:<br>• ${ap.map(lista).join('<br>• ')}${ap.length===1?infoLoc(ap[0]):''}${POFTA}`} }
   if(/cate (locuri|restaurante)|how many/.test(q))return `Am ${D.length} locuri în listă.`;
   if(/^(altceva|something else|reset|de la capat|start over|nou)\b/.test(q)){ctx=null;chips(INIT);return 'Ok, o luăm de la capăt. Ce cauți?'}
   const c=parse(q);
   if(!c.n&&c.pret){chips(INIT);return 'Nu am prețurile locurilor, deci nu pot filtra după preț. Încearcă după bucătărie, zonă sau „cel mai bun”.'}
   if(!c.n){chips(INIT);
-   const gasit=dupaNume(q0,false);
+   const gasit=dupaNume(nt,false);
    if(gasit.length)return gasit.length===1?`Am găsit: ${lista(gasit[0])}${infoLoc(gasit[0])}${POFTA}`:`Am găsit mai multe locuri cu acest nume:<br>• ${gasit.map(lista).join('<br>• ')}${POFTA}`;
    if(LANDM.test(q0)){const z=Object.entries(D.reduce((m,l)=>{if(l.zona)m[l.zona]=(m[l.zona]||0)+1;return m},{})).sort((a,b)=>b[1]-a[1]).slice(0,6).map(x=>x[0]);
     return 'Nu caut încă după repere (stadion, gară, mall…), ci după zonă sau cartier.'+(z.length?`<br>Zone pe care le știu: ${esc(z.join(', '))}`:'')}
-   { const ap=dupaNumeAprox(q0); if(ap.length)return `Poate te referi la:<br>• ${ap.map(lista).join('<br>• ')}${ap.length===1?infoLoc(ap[0]):''}` }
+   { const ap=dupaNumeAprox(nt); if(ap.length)return `Poate te referi la:<br>• ${ap.map(lista).join('<br>• ')}${ap.length===1?infoLoc(ap[0]):''}` }
    if(!FOOD.test(q)&&!FOOD.test(q0))return 'Mă pricep doar la mâncare și la locurile de mâncat din Timișoara 🍽️ La alte subiecte nu te pot ajuta, dar dacă ți-e foame, întreabă-mă de exemplu "pizza în centru", "ceva vegan" sau "unde se mănâncă bine".';
    return 'Nu am înțeles. Încearcă: "ceva italian", "pizza în centru", "fast-food", "unde am fost" sau "cel mai bun".'+corNota}
   // dacă mesajul e scurt sau începe cu „și/și doar/mai…”, completează întrebarea precedentă
@@ -232,7 +244,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(f.vizitat)r=r.filter(l=>l.vizitat);
   if(f.deschis){if(typeof deschisAcum==='function'&&D.some(l=>deschisAcum(l.program)!==null))r=r.filter(l=>deschisAcum(l.program)===true);else nota+='<br><small>Programul locurilor nu e completat încă, deci n-am putut filtra după „deschis acum”.</small>'}
   if(f.pret)nota+='<br><small>Nu am prețuri în date, așa că am ignorat „ieftin/scump”.</small>'
-  if(f.best)r.sort((a,b)=>(b.parerea_mea?.nota??notaPublica(b)??0)-(a.parerea_mea?.nota??notaPublica(a)??0));
+  if(f.best)r.sort((a,b)=>(b.parerea_mea?.nota??notaPublica(b)??0)-(a.parerea_mea?.nota??notaPublica(a)??0)||a.nume.localeCompare(b.nume,'ro'));
   ctx=f;
   const crit=[...f.buc,...f.tip,...f.zone,...f.opts.map(o=>OPT[o]),f.vizitat?'unde am fost':null,f.best?'cel mai bun':null,f.deschis?'deschis acum':null,f.near?'lângă mine':null].filter(Boolean);
    const cl=`<br><small>Criterii: ${esc(crit.join(', '))}</small>`+corNota;
