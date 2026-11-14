@@ -4,7 +4,7 @@ let items=[],i=0,strip=null;
 const lb=$("lb");
 fetch("data/locuri.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(L=>{
  L.forEach(l=>{if(l.poze?.length)l.poze.forEach(p=>items.push({l,p}));else items.push({l,p:null})});
- $("gal").innerHTML=items.map((it,k)=>`<button type="button" data-k="${k}" aria-label="Mărește: ${esc(it.l.nume)}">${it.p?`<img class="thumb" src="img/${esc(it.p)}" alt="${esc(it.l.nume)}" loading="lazy">`:thumb(it.l)}<span>${esc(it.l.nume)}</span></button>`).join("");
+ $("gal").innerHTML=items.map((it,k)=>`<button type="button" data-k="${k}" aria-label="Mărește: ${esc(it.l.nume)}">${it.p?`<img class="thumb" src="img/${esc(it.p)}" alt="" loading="lazy">`:thumb(it.l)}<span>${esc(it.l.nume)}</span></button>`).join("");
  $("gal").removeAttribute("aria-busy");
 }).catch(e=>{$("gal").removeAttribute("aria-busy");$("gal").innerHTML=`<p class="eroare" role="alert">Nu am putut încărca galeria (${esc(e.message)}). Folosești Live Server?</p>`});
 function poster(l){

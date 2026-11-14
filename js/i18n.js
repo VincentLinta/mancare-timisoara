@@ -137,7 +137,7 @@
     [`Text mic și secundar, pentru detalii.`, `Small secondary text, for details.`], [`Butoane`, `Buttons`], [`Buton principal`, `Primary button`], [`Buton cu contur`, `Outline button`], [`Buton-icon`, `Icon button`], [`Link-buton`, `Button link`],
     [`Hover întunecă ușor butonul; focusul de tastatură are un inel dublu, vizibil pe ambele teme.`, `Hover slightly darkens the button; keyboard focus has a double ring, visible on both themes.`],
     [`Etichete și note`, `Tags and scores`], [`Card`, `Card`],
-    [`Imaginea e un placeholder ilustrat (emoji și culoare derivate din nume), deoarece site-ul nu folosește poze.`, `The image is an illustrated placeholder (emoji and color derived from the name), because the site uses no photos.`],
+    [`Unde am poze reale, apar ele; la restul locurilor imaginea e o fișă ilustrată (emoji și culoare derivate din nume).`, `Where I have real photos they are shown; for the other places the image is an illustrated card (emoji and color derived from the name).`],
     [`Formular`, `Form`], [`Câmp de text`, `Text field`], [`Câmp cu eroare`, `Field with error`], [`Câmp valid`, `Valid field`], [`Bifă`, `Checkbox`],
     [`Mesajul de eroare apare sub câmp și e anunțat de cititoarele de ecran.`, `The error message appears under the field and is announced by screen readers.`],
     [`Spațiere și grilă`, `Spacing and grid`], [`Scara de spațiere folosește multipli de 0.25 rem. Cardurile sunt pe 1 coloană (telefon), 2 (de la 700 px) și 3 (de la 1000 px); meniul întreg apare de la 1100 px.`, `The spacing scale uses multiples of 0.25 rem. Cards are in 1 column (phone), 2 (from 700 px) and 3 (from 1000 px); the full menu appears from 1100 px.`],
