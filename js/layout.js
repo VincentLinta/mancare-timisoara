@@ -65,6 +65,8 @@ document.addEventListener('DOMContentLoaded',()=>{
  $('upBtn').onclick=()=>scrollTo({top:0,behavior: SMOOTH});
  $('downBtn').onclick=()=>scrollTo({top:document.body.scrollHeight,behavior: SMOOTH});
  $('helpBtn').onclick=()=>$('helpDlg').showModal();
+ // scurtăturile, vizibile în antetul fiecărei pagini (doar pe ecrane late, unde există tastatură): F2 caută · F4 temă · F8 ajutor · F9 asistent
+ {const w=document.querySelector('header.top .wrap');if(w&&!w.querySelector('.scuturi'))w.insertAdjacentHTML('beforeend','<ul class="scuturi" aria-label="Scurtături de tastatură"><li class="tit">Scurtături</li><li><kbd>F2</kbd> <span>Caută</span></li><li><kbd>F4</kbd> <span>Temă</span></li><li><kbd>F8</kbd> <span>Ajutor</span></li><li><kbd>F9</kbd> <span>Asistent</span></li></ul>')}
 
  // ---------- scurtături de tastatură: doar taste F (nu se pot apăsa din greșeală când scrii) ----------
  // F1, F3, F5, F6, F7, F11, F12 rămân ale browserului. Cu Ctrl/Alt/Shift/Cmd apăsate nu facem nimic (Alt+F4 închide fereastra).
@@ -151,7 +153,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  function parse(q){
   const c={buc:uniq(D.flatMap(taguriBuc)).filter(b=>q.includes(norm(b))),tip:uniq(D.map(l=>l.tip)).filter(x=>q.includes(norm(x))),zone:uniq(D.map(l=>l.zona).filter(Boolean)).filter(z=>q.includes(norm(z))),
    opts:Object.keys(OPTQ).filter(k=>OPTQ[k].test(q)),vizitat:/am fost|ai fost|vizitat|testat|ai mancat|s-a mancat|visited|been to|tried/.test(q),
-   pret:/ieftin|scump|buget|cheap|expensive|budget|economic|afordabil|affordable|\bpret\w*|price|premium|elegant|fancy|fine dining|\blux\b|upscale/.test(q),best:/cel mai bun|cele mai bune|cel mai bine|top|nota mare|recomand|favorit|best|recommend/.test(q),
+   pret:/ieftin|scump|buget|cheap|expensive|budget|economic|afordabil|affordable|\bpret\w*|price|premium|elegant|fancy|fine dining|\blux\b|upscale/.test(q),best:/cel mai bun|cea mai buna|cei mai buni|cele mai bune|cel mai bine|top|nota mare|recomand|favorit|best|recommend/.test(q),
    deschis:/\bdeschis\w*|open now|merge acum/.test(q),
     near:/langa mine|aproape de mine|cel mai aproape|in apropierea mea|near me|nearby|nearest|closest|close to me/.test(q)};
   c.n=c.buc.length+c.tip.length+c.zone.length+c.opts.length+(c.vizitat?1:0)+(c.best?1:0)+(c.deschis?1:0)+(c.near?1:0);return c};
@@ -244,18 +246,23 @@ function dupaNumeAprox(q,min=1){
   if(f.vizitat)r=r.filter(l=>l.vizitat);
   if(f.deschis){if(typeof deschisAcum==='function'&&D.some(l=>deschisAcum(l.program)!==null))r=r.filter(l=>deschisAcum(l.program)===true);else nota+='<br><small>Programul locurilor nu e completat încă, deci n-am putut filtra după „deschis acum”.</small>'}
   if(f.pret)nota+='<br><small>Nu am prețuri în date, așa că am ignorat „ieftin/scump”.</small>'
-  if(f.best)r.sort((a,b)=>(b.parerea_mea?.nota??notaPublica(b)??0)-(a.parerea_mea?.nota??notaPublica(a)??0)||a.nume.localeCompare(b.nume,'ro'));
+  if(f.best){   // top 5: întâi până la 3 după părerea mea, apoi 2 cu cele mai bune note publice; dacă lipsesc, se completează cu restul notelor mele
+    const nm=l=>l.parerea_mea?.nota,np=l=>notaPublica(l),cmp2=(a,b)=>a.nume.localeCompare(b.nume,'ro');
+    const mine=r.filter(l=>nm(l)!=null).sort((a,b)=>nm(b)-nm(a)||cmp2(a,b)),pub=r.filter(l=>nm(l)==null&&np(l)!=null).sort((a,b)=>np(b)-np(a)||cmp2(a,b));
+    const sel=[...mine.slice(0,3),...pub.slice(0,2)];
+    for(const l of [...mine.slice(3),...pub.slice(2)]){if(sel.length>=5)break;sel.push(l)}
+    r=[...sel,...r.filter(l=>!sel.includes(l)).sort((a,b)=>(np(b)??0)-(np(a)??0)||cmp2(a,b))]}
   ctx=f;
   const crit=[...f.buc,...f.tip,...f.zone,...f.opts.map(o=>OPT[o]),f.vizitat?'unde am fost':null,f.best?'cel mai bun':null,f.deschis?'deschis acum':null,f.near?'lângă mine':null].filter(Boolean);
    const cl=`<br><small>Criterii: ${esc(crit.join(', '))}</small>`+corNota;
    // „lângă mine”: cere poziția abia acum (nu la încărcarea paginii), sortează după distanță și arată distanța la fiecare loc
-   const fin=poz=>{let rs=r,nt=nota,et=lista;
+   const lim=f.best?5:3,fin=poz=>{let rs=r,nt=nota,et=f.best?(l=>lista(l)+infoLoc(l)):lista;
     if(f.near){
      if(poz){const dm=l=>distM(poz,l);rs=r.filter(l=>l.lat!=null).sort((a,b)=>dm(a)-dm(b));et=l=>lista(l)+` <small>· ${fmtM(dm(l))}</small>`}
      else nt+='<br><small>Nu am putut afla poziția ta (permisiunea e blocată sau browserul nu o oferă), așa că n-am sortat după distanță.</small>'}
     chips(rs.length?FOLLOW:INIT);
     if(!rs.length)return 'N-am găsit nimic cu criteriile astea. Încearcă altceva.'+nt+cl;
-    return `Ți-aș propune:<br>• ${rs.slice(0,3).map(et).join('<br>• ')}${rs.length>3?`<br><small>…și încă ${rs.length-3} în <a href="index.html">listă</a>.</small>`:''}${nt}${cl}${POFTA}`};
+    return `Ți-aș propune:<br>• ${rs.slice(0,lim).map(et).join('<br>• ')}${rs.length>lim?`<br><small>…și încă ${rs.length-lim} în <a href="index.html">listă</a>.</small>`:''}${f.best?'<br><small>Întâi părerea mea, apoi cele mai bine cotate de alții.</small>':''}${nt}${cl}${POFTA}`};
    if(!f.near||!navigator.geolocation)return fin(null);
    return new Promise(res=>navigator.geolocation.getCurrentPosition(p=>res(fin([p.coords.latitude,p.coords.longitude])),()=>res(fin(null)),{timeout:8000,maximumAge:300000}));
  }

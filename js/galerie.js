@@ -1,9 +1,10 @@
 // Galerie: grilă de fișe + vizualizare mărită cu Previous/Next, săgeți de la tastatură, swipe pe telefon și bandă de miniaturi.
-// Fără poze, fiecare loc e o „fișă" ilustrată (emoji + culoare + note). Dacă adaugi poze în JSON, apar ele.
+// Întâi pozele mele; locurile fără poze apar ca „fișe" ilustrate (emoji + culoare + note).
 let items=[],i=0,strip=null;
 const lb=$("lb");
 fetch("data/locuri.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(L=>{
  L.forEach(l=>{if(l.poze?.length)l.poze.forEach(p=>items.push({l,p}));else items.push({l,p:null})});
+ items.sort((a,b)=>(!!b.p-!!a.p)||((b.l.parerea_mea?.nota??-1)-(a.l.parerea_mea?.nota??-1)));   // întâi pozele mele (după nota mea), apoi fișele ilustrate; sortarea e stabilă, deci pozele aceluiași loc rămân împreună
  $("gal").innerHTML=items.map((it,k)=>`<button type="button" data-k="${k}" aria-label="Mărește: ${esc(it.l.nume)}">${it.p?`<img class="thumb" src="img/${esc(it.p)}" alt="" loading="lazy">`:thumb(it.l)}<span>${esc(it.l.nume)}</span></button>`).join("");
  $("gal").removeAttribute("aria-busy");
 }).catch(e=>{$("gal").removeAttribute("aria-busy");$("gal").innerHTML=`<p class="eroare" role="alert">Nu am putut încărca galeria (${esc(e.message)}). Folosești Live Server?</p>`});
