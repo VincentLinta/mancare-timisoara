@@ -10,7 +10,8 @@ const TXT = MOD === "contact"
 // fiecare câmp are o regulă: întoarce true dacă e ok, altfel mesajul de eroare
 const R={
  nume:v=>/^[A-Za-zĂÂÎȘȚăâîșțŞŢşţ\s\-]{3,}$/.test(v.trim())||"Scrie un nume de cel puțin 3 litere.",
- email:v=>/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v.trim())||"Introdu o adresă validă, ex. nume@domeniu.ro.",
+ // format strict: parte locală fără puncte la margini/duble, domeniu cu etichete valide (fără „..”, fără „-” la margini) și extensie din litere (min. 2); nu poate verifica dacă adresa există
+ email:v=>/^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(v.trim())||"Introdu o adresă validă, ex. nume@domeniu.ro.",
  tel:v=>/^(\+40|0)7\d{8}$/.test(v.replace(/[\s.-]/g,""))||"Număr românesc valid: 07xxxxxxxx sau +407xxxxxxxx.",
  locul:v=>v.trim().length>=2||"Scrie numele localului.",
  msg:v=>v.trim().length>=10||"Spune-ne mai mult (minim 10 caractere).",
